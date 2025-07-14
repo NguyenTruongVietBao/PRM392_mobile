@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="title_home">Home</string>
+    <string name="title_cart">Giỏ hàng</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="action_logout">Logout</string>
+    <string name="toolbar_title">E-Commerce App</string>
+
+    <!-- Profile Fragment Strings -->
+    <string name="profile_user_name">User Name</string>
+    <string name="profile_user_name_with_id">User %1$s</string>
+    <string name="profile_user_id">ID: #%1$s</string>
+    <string name="profile_user_id_default">ID: #12345</string>
+    <string name="profile_customer_role">Customer</string>
+    <string name="profile_account_info">Account Information</string>
+    <string name="profile_email_label">Email</string>
+    <string name="profile_phone_label">Phone</string>
+    <string name="profile_member_since_label">Member Since</string>
+    <string name="profile_logout">Logout</string>
+    <string name="profile_default_email">user@example.com</string>
+    <string name="profile_default_phone">+84 123 456 789</string>
+    <string name="profile_default_member_since">January 2024</string>
+
+    <!-- Profile states -->
+    <string name="profile_not_logged_in">Not Logged In</string>
+    <string name="profile_id_na">ID: N/A</string>
+    <string name="profile_guest_role">Guest</string>
+    <string name="profile_login_required">Please login to view profile</string>
+    <string name="profile_na">N/A</string>
+    <string name="profile_error_loading">Error loading data</string>
+    <string name="profile_loading">Loading...</string>
+
+    <!-- Dialog strings -->
+    <string name="dialog_logout_title">Đăng xuất</string>
+    <string name="dialog_logout_message">Bạn có muốn đăng xuất khỏi tài khoản?</string>
+    <string name="dialog_logout_confirm">Đăng xuất</string>
+    <string name="dialog_cancel">Huỷ</string>
+
+    <!-- Product strings -->
+    <string name="product_stock_format">Kho: %1$d</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_feature_not_implemented">Feature Not Implemented</string>
+    <string name="dialog_edit_profile_message">Edit Profile feature will be available in a future update.</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_email_icon">Email icon</string>
+    <string name="cd_phone_icon">Phone icon</string>
+    <string name="cd_calendar_icon">Calendar icon</string>
+
+    <!-- Product Detail Activity Strings -->
+    <string name="color_format">Màu: %1$s</string>
+    <string name="size_format">Size: %1$s</string>
+    <string name="stock_available">Còn %1$d sản phẩm</string>
+    <string name="out_of_stock">Hết hàng</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="adding_to_cart">Đang thêm...</string>
+    <string name="view_cart">Xem giỏ hàng</string>
+    <string name="cart_feature_coming_soon">Tính năng giỏ hàng đang phát triển</string>
+    <string name="close">Đóng</string>
+
+    <!-- Chat strings -->
+    <string name="chat_ai_assistant">Trợ lý AI</string>
+    <string name="chat_status_ready">Luôn sẵn sàng hỗ trợ bạn</string>
+    <string name="chat_status_loading">Đang tải...</string>
+    <string name="chat_status_sending">Đang gửi tin nhắn...</string>
+    <string name="chat_empty_title">Bắt đầu cuộc trò chuyện</string>
+    <string name="chat_empty_message">Hãy gửi tin nhắn để bắt đầu chat với trợ lý AI</string>
+    <string name="chat_message_hint">Nhập tin nhắn...</string>
+    <string name="chat_error_empty_message">Vui lòng nhập tin nhắn</string>
+    <string name="chat_error_no_user">Không thể xác định người dùng</string>
+
+    <!-- Common strings -->
+    <string name="loading">Đang tải...</string>
+    <string name="error">Lỗi</string>
+    <string name="retry">Thử lại</string>
+    <string name="cancel">Hủy</string>
+    <string name="ok">Đồng ý</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="save">Lưu</string>
+    <string name="delete">Xóa</string>
+    <string name="edit">Sửa</string>
+    <string name="done">Hoàn thành</string>
+    <string name="success">Thành công</string>
+    <string name="failed">Thất bại</string>
+
+    <!-- Manager Profile strings -->
+    <string name="manager_profile_loading">Đang tải...</string>
+    <string name="manager_profile_error_loading">Lỗi tải dữ liệu</string>
+    <string name="manager_profile_not_logged_in">Chưa đăng nhập</string>
+    <string name="manager_profile_login_required">Vui lòng đăng nhập</string>
+    <string name="manager_profile_na">N/A</string>
+    <string name="manager_profile_guest">Guest</string>
+    <string name="manager_profile_error">Error</string>
+    <string name="manager_profile_default_name">Manager</string>
+    <string name="manager_profile_not_updated">Chưa cập nhật</string>
+    <string name="manager_profile_edit_coming_soon">Tính năng chỉnh sửa sẽ được phát triển sớm</string>
+    <string name="manager_profile_refreshing">Đang làm mới thông tin...</string>
+    <string name="manager_profile_logout_title">Xác nhận đăng xuất</string>
+    <string name="manager_profile_logout_message">Bạn có chắc chắn muốn đăng xuất không?</string>
+    <string name="manager_profile_logout_confirm">Đăng xuất</string>
+    <string name="manager_profile_cancel">Hủy</string>
+    <string name="manager_profile_error_loading_profile">Lỗi tải thông tin profile</string>
+    <string name="manager_profile_retry">Thử lại</string>
+
+</resources>

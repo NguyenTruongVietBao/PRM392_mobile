@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "245122206178",
+    "project_id": "imguploadswp",
+    "storage_bucket": "imguploadswp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245122206178:android:c1193681d67af48ab2d1bb",
+        "android_client_info": {
+          "package_name": "com.app.app2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG_2sPgzwNoB1QpcW3xDOrX5YaCHGmflQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245122206178:android:8cf430ab52ae1c01b2d1bb",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG_2sPgzwNoB1QpcW3xDOrX5YaCHGmflQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:245122206178:android:227cf7b1c5145febb2d1bb",
+        "android_client_info": {
+          "package_name": "com.example.pt2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG_2sPgzwNoB1QpcW3xDOrX5YaCHGmflQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

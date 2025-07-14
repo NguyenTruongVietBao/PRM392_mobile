@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/manager_navigation"
+    app:startDestination="@+id/navigation_manager_products">
+
+    <fragment
+        android:id="@+id/navigation_manager_products"
+        android:name="com.example.myapplication.ui.fragment.manager.ManagerProductListFragment"
+        android:label="Quản lý sản phẩm"
+        tools:layout="@layout/fragment_manager_product_list">
+        
+        <action
+            android:id="@+id/action_product_list_to_form"
+            app:destination="@+id/navigation_manager_product_form" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_manager_product_form"
+        android:name="com.example.myapplication.ui.fragment.manager.ManagerProductFormFragment"
+        android:label="Thêm/Sửa sản phẩm"
+        tools:layout="@layout/fragment_manager_product_form">
+        
+        <argument
+            android:name="product_id"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_manager_orders"
+        android:name="com.example.myapplication.ui.fragment.manager.ManagerOrderListFragment"
+        android:label="Quản lý đơn hàng"
+        tools:layout="@layout/fragment_manager_order_list" />
+
+    <fragment
+        android:id="@+id/navigation_manager_profile"
+        android:name="com.example.myapplication.ui.fragment.manager.ManagerProfileFragment"
+        android:label="Hồ sơ"
+        tools:layout="@layout/fragment_manager_profile" />
+
+</navigation> 
