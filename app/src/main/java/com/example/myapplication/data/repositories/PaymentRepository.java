@@ -11,24 +11,31 @@ import com.example.myapplication.network.ApiClient;
 import com.example.myapplication.network.ApiService;
 import com.example.myapplication.network.ApiUtils;
 
+// Repository xử lý logic liên quan đến thanh toán (payment)
 public class PaymentRepository {
+    // Đối tượng gọi API
     private ApiService apiService;
     
+    // LiveData lưu kết quả thanh toán
     private MutableLiveData<ApiResponse<Payment>> paymentResult = new MutableLiveData<>();
+    // LiveData trạng thái loading (đang xử lý API hoặc thanh toán)
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     
+    // Khởi tạo repository, lấy ApiService
     public PaymentRepository() {
         apiService = ApiClient.getApiService();
     }
     
+    // Trả về LiveData kết quả thanh toán
     public LiveData<ApiResponse<Payment>> getPaymentResult() {
         return paymentResult;
     }
-    
+    // Trả về LiveData trạng thái loading
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }
     
+    // Xử lý thanh toán (giả lập, sleep 2s, trả về thành công hoặc lỗi)
     public void processPayment(Payment payment) {
         isLoading.setValue(true);
         new Thread(() -> {
@@ -47,6 +54,7 @@ public class PaymentRepository {
         }).start();
     }
 
+    // Xác thực thanh toán (giả lập, sleep 1.5s, trả về thành công hoặc lỗi)
     public void verifyPayment(String transactionId) {
         isLoading.setValue(true);
         new Thread(() -> {
@@ -67,6 +75,7 @@ public class PaymentRepository {
         }).start();
     }
     
+    // Hoàn tiền (giả lập, sleep 2.5s, trả về thành công hoặc lỗi)
     public void refundPayment(String transactionId, double amount) {
         isLoading.setValue(true);
         new Thread(() -> {
