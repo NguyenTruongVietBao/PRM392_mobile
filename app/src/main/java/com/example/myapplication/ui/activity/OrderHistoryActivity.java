@@ -31,7 +31,7 @@ import java.util.List;
 public class OrderHistoryActivity extends AppCompatActivity implements OrderHistoryAdapter.OnOrderItemClickListener {
 
     private static final String TAG = "OrderHistoryActivity";
-    
+
     // UI Components
     private MaterialToolbar toolbar;
     private ChipGroup chipGroupStatus;
@@ -40,12 +40,12 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
     private LinearLayout layoutEmptyState;
     private ProgressBar progressBarLoading;
     private FloatingActionButton fabRefresh;
-    
+
     // Data
     private OrderRepository orderRepository;
     private SessionManager sessionManager;
     private OrderHistoryAdapter orderAdapter;
-    
+
     // State
     private List<Order> allOrders = new ArrayList<>();
     private String currentStatusFilter = null;
@@ -54,7 +54,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
-        
+
         initViews();
         initComponents();
         setupToolbar();
@@ -63,7 +63,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
         observeViewModel();
         loadOrders();
     }
-    
+
     private void initViews() {
         toolbar = findViewById(R.id.toolbar);
         chipGroupStatus = findViewById(R.id.chipGroupStatus);
@@ -76,36 +76,36 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
         progressBarLoading = findViewById(R.id.progressBarLoading);
         fabRefresh = findViewById(R.id.fabRefresh);
     }
-    
+
     private void initComponents() {
         orderRepository = new OrderRepository();
         sessionManager = SessionManager.getInstance(this);
         orderAdapter = new OrderHistoryAdapter(this);
     }
-    
+
     private void setupToolbar() {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        
+
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
-    
+
     private void setupRecyclerView() {
         recyclerViewOrders.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewOrders.setAdapter(orderAdapter);
     }
-    
+
     private void setupClickListeners() {
         // Chip filter listeners
         chipGroupStatus.setOnCheckedStateChangeListener((group, checkedIds) -> {
             if (checkedIds.isEmpty()) return;
-            
+
             int checkedId = checkedIds.get(0);
             String statusFilter = null;
-            
+
             if (checkedId == R.id.chipPending) {
                 statusFilter = "PENDING";
             } else if (checkedId == R.id.chipProcessing) {
@@ -114,19 +114,19 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
                 statusFilter = "DELIVERED";
             }
             // chipAll or others = null (show all)
-            
+
             currentStatusFilter = statusFilter;
             filterOrders();
         });
-        
+
         // Refresh button
         fabRefresh.setOnClickListener(v -> loadOrders());
     }
-    
+
     private void observeViewModel() {
         // Observe orders result
         orderRepository.getOrdersResult().observe(this, this::handleOrdersResult);
-        
+
         // Observe loading state
         orderRepository.getIsLoading().observe(this, isLoading -> {
             if (isLoading != null) {
@@ -134,7 +134,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
             }
         });
     }
-    
+
     private void loadOrders() {
         String userId = sessionManager.getUserId();
         if (userId != null && !userId.isEmpty()) {
@@ -145,7 +145,7 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
             showError("Không thể xác định người dùng");
         }
     }
-    
+
     private void handleOrdersResult(ApiResponse<List<Order>> result) {
         if (result != null) {
             if (result.isSuccess() && result.getData() != null) {
@@ -163,38 +163,38 @@ public class OrderHistoryActivity extends AppCompatActivity implements OrderHist
             showEmptyState();
         }
     }
-    
+
     private void filterOrders() {
         List<Order> filteredOrders = new ArrayList<>();
-        
+
         for (Order order : allOrders) {
-            if (currentStatusFilter == null || 
-                (order.getStatus() != null && order.getStatus().toString().equals(currentStatusFilter))) {
+            if (currentStatusFilter == null ||
+                    (order.getStatus() != null && order.getStatus().toString().equals(currentStatusFilter))) {
                 filteredOrders.add(order);
             }
         }
-        
+
         Log.d(TAG, "Filtered orders: " + filteredOrders.size() + " (filter: " + currentStatusFilter + ")");
-        
+
         if (filteredOrders.isEmpty()) {
             showEmptyState();
         } else {
             showOrdersList(filteredOrders);
         }
     }
-    
+
     private void showOrdersList(List<Order> orders) {
         layoutEmptyState.setVisibility(View.GONE);
         recyclerViewOrders.setVisibility(View.VISIBLE);
         orderAdapter.setOrders(orders);
     }
-    
+
     private void showEmptyState() {
         layoutEmptyState.setVisibility(View.VISIBLE);
         recyclerViewOrders.setVisibility(View.GONE);
         orderAdapter.clearOrders();
     }
-    
+
     private void showError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }

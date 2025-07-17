@@ -94,7 +94,7 @@ public class ManagerOrderListFragment extends Fragment implements ManagerOrderAd
             if (response.isSuccess()) {
                 List<Order> orders = response.getData();
                 viewModel.setAllOrders(orders);
-                showSuccessState();
+                // showSuccessState() will be called by filteredOrders observer
             } else {
                 showErrorState(response.getMessage());
             }
@@ -121,7 +121,8 @@ public class ManagerOrderListFragment extends Fragment implements ManagerOrderAd
         viewModel.getUpdateOrderResult().observe(getViewLifecycleOwner(), response -> {
             if (response.isSuccess()) {
                 Toast.makeText(getContext(), "Cập nhật đơn hàng thành công", Toast.LENGTH_SHORT).show();
-                adapter.updateOrder(response.getData());
+                // Refresh the entire list to get updated data from server
+                viewModel.refreshOrders();
             } else {
                 Toast.makeText(getContext(), "Lỗi: " + response.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -175,8 +176,6 @@ public class ManagerOrderListFragment extends Fragment implements ManagerOrderAd
         binding.layoutErrorState.setVisibility(View.VISIBLE);
         binding.tvErrorMessage.setText(message);
     }
-
-    // ManagerOrderAdapter.OnManagerOrderItemClickListener implementation
     @Override
     public void onOrderClick(Order order) {
         viewModel.selectOrder(order);
@@ -185,6 +184,12 @@ public class ManagerOrderListFragment extends Fragment implements ManagerOrderAd
 
     @Override
     public void onUpdateStatusClick(Order order) {
+        // Check if currently loading to prevent multiple requests
+        Boolean isLoading = viewModel.getIsLoading().getValue();
+        if (isLoading != null && isLoading) {
+            Toast.makeText(getContext(), "Đang xử lý, vui lòng đợi...", Toast.LENGTH_SHORT).show();
+            return;
+        }
         showUpdateStatusDialog(order);
     }
 
@@ -195,7 +200,6 @@ public class ManagerOrderListFragment extends Fragment implements ManagerOrderAd
 
     @Override
     public void onViewCustomerClick(Order order) {
-        // Display customer information
         String customerInfo;
         if (order.getBuyer() != null && !order.getBuyer().isEmpty()) {
             customerInfo = order.getBuyer();
@@ -206,14 +210,12 @@ public class ManagerOrderListFragment extends Fragment implements ManagerOrderAd
         }
         
         Toast.makeText(getContext(), "Khách hàng: " + customerInfo, Toast.LENGTH_LONG).show();
-        // TODO: Navigate to customer details if needed
     }
 
     private void showOrderDetails(Order order) {
         StringBuilder details = new StringBuilder();
         details.append("Mã đơn hàng: ").append(order.getOrderNumber()).append("\n\n");
         
-        // Display buyer email if available, otherwise userId
         String customerInfo;
         if (order.getBuyer() != null && !order.getBuyer().isEmpty()) {
             customerInfo = order.getBuyer();
@@ -245,7 +247,6 @@ public class ManagerOrderListFragment extends Fragment implements ManagerOrderAd
         String[] statusOptions;
         OrderStatus[] statusValues;
 
-        // Define available status transitions based on current status
         switch (currentStatus) {
             case PENDING:
                 statusOptions = new String[]{"Xác nhận đơn hàng", "Từ chối đơn hàng"};

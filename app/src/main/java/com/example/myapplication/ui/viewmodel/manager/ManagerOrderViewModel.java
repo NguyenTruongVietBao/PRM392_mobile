@@ -91,15 +91,8 @@ public class ManagerOrderViewModel extends ViewModel {
     }
     
     public void updateOrderStatus(String orderId, OrderStatus newStatus) {
-        // Update local order status for immediate UI update
-        Order orderToUpdate = findOrderById(orderId);
-        if (orderToUpdate != null) {
-            orderToUpdate.setStatus(newStatus);
-            // Apply filters to refresh the filtered list
-            applyFilters();
-        }
-        
         // Call API to update status on server
+        // Don't update local data here, let the refresh handle it
         orderRepository.updateOrderStatus(orderId, newStatus);
     }
     

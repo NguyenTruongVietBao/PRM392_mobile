@@ -2,6 +2,8 @@ package com.example.myapplication.data.models;
 
 import com.example.myapplication.enums.OrderStatus;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.JsonAdapter;
+import com.example.myapplication.network.serializers.PaymentDeserializer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,8 +21,9 @@ public class Order {
     private String orderNote;
     @SerializedName(value = "orderDate", alternate = {"createdAt", "created_at"})
     private Date orderDate;
+    @JsonAdapter(PaymentDeserializer.class)
     private Payment payment;
-    
+
     // Additional fields from server response
     private String buyer; // Customer email
     private int itemCount; // Number of items from server
@@ -95,7 +98,7 @@ public class Order {
         if (itemCount > 0) {
             return itemCount;
         }
-        
+
         int total = 0;
         if (items != null) {
             for (OrderItem item : items) {
