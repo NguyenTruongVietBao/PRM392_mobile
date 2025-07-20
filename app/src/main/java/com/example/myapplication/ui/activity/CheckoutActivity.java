@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -60,6 +62,7 @@ public class CheckoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_checkout);
         
         initViews();
@@ -151,10 +154,11 @@ public class CheckoutActivity extends AppCompatActivity {
             if (result != null) {
                 if (result.isSuccess() && result.getData() != null) {
                     Order order = result.getData();
-                    // Navigate to payment success screen instead of main activity
+                    // Navigate to payment success screen
                     navigateToPaymentSuccess(order);
                 } else {
-                    showError("Đặt hàng thất bại: " + result.getMessage());
+                    // Navigate to payment failure screen
+                    navigateToPaymentFailure();
                 }
             }
         });
@@ -259,7 +263,7 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private void navigateToPaymentSuccess(Order order) {
-        Intent intent = new Intent(this, PaymentSuccessActivity.class);
+        Intent intent = new Intent(this, PaymentStatusActivity.class);
 
         // Pass order information
         if (order != null && order.getId() != null) {
@@ -267,9 +271,9 @@ public class CheckoutActivity extends AppCompatActivity {
         }
 
         // Pass current checkout information
-        intent.putExtra("totalItems", totalItems);
         intent.putExtra("totalAmount", totalPrice);
         intent.putExtra("paymentMethod", getSelectedPaymentMethod());
+        intent.putExtra("isPaymentSuccess", true);
 
         // Pass shipping and order details
         String shippingAddress = etShippingAddress.getText() != null ?
@@ -279,6 +283,18 @@ public class CheckoutActivity extends AppCompatActivity {
 
         intent.putExtra("shippingAddress", shippingAddress);
         intent.putExtra("orderNote", orderNote);
+
+        startActivity(intent);
+        finish();
+    }
+
+    private void navigateToPaymentFailure() {
+        Intent intent = new Intent(this, PaymentStatusActivity.class);
+
+        // Pass failure status
+        intent.putExtra("isPaymentSuccess", false);
+        intent.putExtra("totalAmount", totalPrice);
+        intent.putExtra("paymentMethod", getSelectedPaymentMethod());
 
         startActivity(intent);
         finish();
